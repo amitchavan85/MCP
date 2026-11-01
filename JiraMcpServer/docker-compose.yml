@@ -1,0 +1,14 @@
+services:
+  jira-mcp:
+    build: .
+    image: jira-mcp-server:latest
+    env_file: .env
+    environment:
+      HOST: 0.0.0.0
+      # Requests arrive with Host "localhost:8000" from your machine; add your DNS name when deployed.
+      MCP_ALLOWED_HOSTS: '["localhost:*","127.0.0.1:*","jira-mcp:*"]'
+    ports:
+      - "8000:8000"
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: ["no-new-privileges:true"]
